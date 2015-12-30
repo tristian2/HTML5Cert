@@ -16,9 +16,10 @@
         function successPositionWatcher(pos) {
 
             LoadFromStorage();
-            localStorage.setItem(localStorage.getItem("p"), pos.coords);
+            
             var newp = eval(localStorage.getItem("p")) + 1;
             localStorage.setItem("p", newp);
+            localStorage.setItem(newp, pos.coords);
             $("#geoResultsWatcher").append("<p>Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude + "</p>");
             
         }
