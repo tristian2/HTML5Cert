@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>chapter 1 - thought experiment "location"</title>
+	<meta charset="utf-8" />
+    <script type="text/javascript" src="../scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            var geoLocator = window.navigator.geolocation;
+            var postOptions = { enableHighAccuracy: true, timeout: 45000 };
+            //a continuous polling watcher
+            var watcher = geoLocator.watchPosition(successPositionWatcher, errorPositionWatcher, postOptions);
+        });
+        //callbacks for watcher
+        function successPositionWatcher(pos) {
+
+            LoadFromStorage();
+            localStorage.setItem(localStorage.getItem("p"), pos.coords);
+            var newp = eval(localStorage.getItem("p")) + 1;
+            localStorage.setItem("p", newp);
+            $("#geoResultsWatcher").append("<p>Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude + "</p>");
+            
+        }
+        function errorPositionWatcher(err) {
+            $("#geoResultsWatcher").append("<p>Errors: " + err.message + " code: " + err.code + "</p>");
+            
+        }
+
+        function LoadFromStorage() {
+            var storageDiv = $('#storage');
+            var tbl = document.createElement("table");
+            tbl.id = "storageTable";
+            if (localStorage.length > 0) {
+                for (var i = 0; i < localStorage.length; i++) {
+                    var row = document.createElement("tr");
+                    var key = document.createElement("td");
+                    var val = document.createElement("td");
+                    key.innerText = localStorage.key(i);
+                    val.innerText = localStorage.getItem(key.innerText);
+
+                    row.appendChild(key)
+                    row.appendChild(val)
+                    tbl.appendChild(row)
+                }
+            } else {
+                //starting so we'll set coord pair counter to zero
+                localStorage.setItem("p", 0);
+                var row = document.createElement("tr");
+                var col = document.createElement("td");
+                col.innerText = "no data in storage";
+                row.appendChild(col);
+                tbl.appendChild(row);
+            }
+            if (document.getElementById("storageTable")) {
+                document.getElementById("storageTable").replaceNode(tbl);
+            } else {
+                storageDiv.append(tbl);
+            }
+        }
+    </script>
+</head>
+<body>
+    <section>
+        <h1>Geo-location API - distance measurement</h1>               
+    </section>
+    <div id="geoResultsWatcher"><p>Current location, using watcher is:</p></div>
+    <div id="storage"><p>Current storage contents</p></div>
+</body>
+</html>
+

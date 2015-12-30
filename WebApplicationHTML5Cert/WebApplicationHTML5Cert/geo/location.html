@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>chapter 1 - location</title>
+	<meta charset="utf-8" />
+    <script type="text/javascript" src="../scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var geoLocator = window.navigator.geolocation;
+            var postOptions = { enableHighAccuracy: true, timeout: 45000 };
+            geoLocator.getCurrentPosition(successPosition, errorPosition, postOptions);
+
+            //also a continuous polling watcher
+            var watcher = geoLocator.watchPosition(successPositionWatcher, errorPositionWatcher, postOptions);
+        });
+        function successPosition (pos) {
+            console.log(pos);
+            /* dont work in FF var sp = document.createElement("p");           
+            sp.innerText = "Latitude: ";// + pos.coords.latitude + " Longitude: " + pos.coords.longitude;
+            document.getElementById("geoResults").appendChild(sp);*/
+            $("#geoResults").append("<p>Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude + "</p>");            
+        }
+        function errorPosition(err) {
+            console.log(err);
+            var sp = document.createElement("p");
+            sp.innerText = "Errors: " + err.message + " code: " + err.code;
+            document.getElementById("geoResults").appendChild(sp);
+        }
+
+        //callbacks for watcher
+        function successPositionWatcher(pos) {
+            $("#geoResultsWatcher").append("<p>Latitude: " + pos.coords.latitude + " Longitude: " + pos.coords.longitude + "</p>");
+        }
+        function errorPositionWatcher(err) {
+            $("#geoResultsWatcher").append("<p>Errors: " + err.message + " code: " + err.code + "</p>");
+            
+        }
+    </script>
+</head>
+<body>
+    <section>
+        <h1>Geo-location API</h1>               
+    </section>
+    <div id="geoResults"><p>Current location is:</p></div>
+    <figure>
+        <img src="../images/geoloc.PNG" style="width:100%;height:100%;" />
+        <figcaption>fig 1 - sample output from the code in FF</figcaption>
+    </figure>
+    <div id="geoResultsWatcher"><p>Current location, using watcher is:</p></div>
+</body>
+</html>
+
