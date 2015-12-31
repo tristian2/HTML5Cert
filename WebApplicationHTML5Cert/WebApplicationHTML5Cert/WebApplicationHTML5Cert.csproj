@@ -66,12 +66,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ajax\layout.html" />
     <Content Include="geo\thoughExp.html" />
     <Content Include="geo\location.html" />
     <Content Include="images\geoloc.PNG" />
+    <Content Include="scripts\CalculateWorker.js" />
     <Content Include="storage\sessionStorage.html" />
     <Content Include="storage\localStorage.html" />
     <Content Include="packages.config" />
+    <Content Include="webworker\CalculateWorker.js" />
+    <Content Include="webworker\withworker.html" />
+    <Content Include="webworker\noworker.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
