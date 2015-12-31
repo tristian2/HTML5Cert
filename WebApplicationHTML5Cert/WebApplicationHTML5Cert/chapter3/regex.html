@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script type="text/javascript" src="../scripts/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        function CheckRegExp() {
+            try {
+                var s = $('#RegExp').val();
+                //think of UK postcodes...  eg AL10 3BU, BN16HL or WC1T 4BQ or even W1 1AA
+                /* so 
+                first char mandatory [A-Z,a-z]
+                second optional letter, so [A-Z,a-z]?  preceding char is optional by the ? char
+                third and optional fourth are numbers, so 
+                [0-9][0-9]?
+                next is an optional space [\s{1}]?, but only one space if it is present
+                rest are the number and two letters, so finally we get
+                /^[A-Z,a-z][A-Z,a-z]?[0-9][0-9]?[\s{1}]?[0-9][A-Z,a-z][A-Z,a-z]$/.test('MK13 2df')
+                */
+                var regExp = /^[A-Z,a-z]d/;//[[A-Z,a-z]{1}]d/;
+                
+                if (regExp.test(s))
+                    $('#result').text('OK');
+                else
+                    $('#result').text('Fail');
+            } catch (e) {
+                console.log(e.message);
+            }
+        }
+    </script>
+</head>
+<body> <header>
+    <h1>HTML5 Cert.</h1>
+    <h2>Contents</h2>
+    <nav>
+        <a href=""></a>
+    </nav>
+</header>
+
+    <form>
+        <input type="text" id="RegExp" />
+        <button onclick="CheckRegExp();">Check</button>
+
+        <div id="result"></div>
+    </form>
+    </body>
+</html>

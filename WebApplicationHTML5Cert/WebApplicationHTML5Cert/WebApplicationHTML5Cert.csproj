@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ajax\layout.html" />
+    <Content Include="chapter3\regex.html" />
+    <Content Include="chapter3\layout.html" />
     <Content Include="geo\thoughExp.html" />
     <Content Include="geo\location.html" />
     <Content Include="images\geoloc.PNG" />
